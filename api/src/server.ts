@@ -4,7 +4,7 @@ import NodeCache from "node-cache";
 import app from './express';
 import sequelize from './sequelize';
 
-import { APP_DB_URL, NODE_ENV, PORT, STORAGE_LOCAL } from './common/interfaces/constants';
+import { APP_DB_URL, LOG_LOCAL, NODE_ENV, PORT, STORAGE_LOCAL } from './common/interfaces/constants';
 import { createSPS } from './storeprocedure/initialize.sp';
 import UserRoleModel from './models/user.role.model';
 
@@ -18,6 +18,7 @@ export const myCache = new NodeCache({ stdTTL: 100, checkperiod: 1000 });
  * create folder ./download/
  */
 if (!fs.existsSync(STORAGE_LOCAL)) fs.mkdirSync(STORAGE_LOCAL);
+if (!fs.existsSync(LOG_LOCAL)) fs.mkdirSync(LOG_LOCAL);
 
 /**
  * connect to MySQL Databases
@@ -25,7 +26,7 @@ if (!fs.existsSync(STORAGE_LOCAL)) fs.mkdirSync(STORAGE_LOCAL);
 sequelize.sync({ alter: false, force: false })
 	.catch((err: Error) => console.log("Database is error :", err.toString()))
 	.then(() => {
-		initial()
+		// initial()
 		// console.log("Drop and Resync Db	");
 	});
 sequelize.authenticate()

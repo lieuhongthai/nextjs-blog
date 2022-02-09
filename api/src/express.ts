@@ -14,13 +14,14 @@ import passport from 'passport';
 import authRouter from "./routes/auth.route";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import videoRouter from "./routes/videos.route";
 
 let num = 0;
 const app = express();
 
 loadConfigs();
 loadRoutes();
-// loadFontEndReact();
+loadFontEndReact();
 
 export default app;
 
@@ -103,6 +104,7 @@ function loadRoutes() {
 	const swaggerDocs = swaggerJsdoc(swaggerOptions);
 	app.use("/swagger-api", swaggerUi.serve, swaggerUi.setup(swaggerDocs, { explorer: true }))
 	app.use('/auth', authRouter);
+	app.use('/videos', videoRouter);
 	// app.use('/api', verifyToken(), router);
 	// app.use('/authGoogle', authGoogleRouter);
 	// app.use('/amazoneS3', amazoneS3Router);
@@ -113,8 +115,13 @@ function loadRoutes() {
 }
 
 function loadFontEndReact() {
-	app.use(express.static(path.join(__dirname, '../../build')));
-	app.get('/*', function (req, res) {
-		res.sendFile(path.join(__dirname, '../../build', 'index.html'));
-	});
+	// app.use(express.static(path.join(__dirname, '../../build')));
+	// app.get('/*', function (req, res) {
+	// 	res.sendFile(path.join(__dirname, '../../build', 'index.html'));
+	// });
+	app.get("/", (req: express.Request, res: express.Response) => {
+		// res.sendFile(__dirname + "/index.html");
+		res.sendFile(path.join(__dirname, '../', 'index.html'));
+
+	})
 }

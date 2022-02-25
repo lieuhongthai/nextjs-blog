@@ -11,6 +11,7 @@ export const HOST = process.env.HOST || 'geoex23f.geo.net';
 export const MAIN_DOMAIN = process.env.DOMAIN || '@geonet.co.jp';
 export const MAIL_SERVICE = process.env.MAIL_SERVICE || 'vietnam.system@geonet.co.jp';
 export const STORAGE_LOCAL = process.env.STORAGE_LOCAL || './download';
+export const LOG_LOCAL = process.env.LOG_LOCAL || './src/logs';
 
 export const APP_VERSION = process.env.APP_VERSION || '';
 export const APP_VERSION_DATETIME = process.env.APP_VERSION_DATETIME || '';

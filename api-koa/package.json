@@ -1,0 +1,42 @@
+{
+  "name": "project-megaton-group",
+  "version": "1.0.0",
+  "description": "Server Koa",
+  "main": "index.js",
+  "author": "MegatonTeam",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./lib/app",
+    "build": "cross-env NODE_ENV=production tsc",
+    "start:dev": "cross-env NODE_ENV=development npm install && cross-env ts-node-dev --respawn --transpile-only ./src/app",
+    "start:prod": "cross-env NODE_ENV=production tsc && cross-env node ./lib/app",
+    "start:test": "cross-env NODE_ENV=test npm install && cross-env ts-node-dev --respawn --transpile-only ./src/app",
+    "fuser": "fuser -k 3000/tcp",
+    "test": "cross-env NODE_ENV=test mocha --exit",
+    "test:watch": "cross-env NODE_ENV=test mocha --watch",
+    "coverage": "nyc --reporter=html --reporter=text npm run test",
+    "coverage:comment": " "
+  },
+  "dependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.5",
+    "@types/koa-cors": "^0.0.2",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
+    "http-status": "^1.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-cors": "^0.0.16",
+    "koa-logger": "^3.2.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.5.0",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.5.5"
+  }
+}

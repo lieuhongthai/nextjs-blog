@@ -1,51 +1,50 @@
-import { Button, Layout, Menu, Popover, Row } from "antd";
-import React from "react";
+import { Layout, Menu, Image, Row, Typography } from "antd";
+import React, { useEffect, useLayoutEffect } from "react";
 import { UserOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import routers from "../../routes";
 import "./Sidebar.css";
-const SidebarLayout = () => {
+const SidebarLayout = ({ collapsed,onCollapsed }) => {
   const { Sider } = Layout;
   const { SubMenu } = Menu;
-  const [collapsed, setCollapsed] = React.useState(false);
-  const onCollapse = () => {
-    setCollapsed(!collapsed);
-  };
+  const [theme, setTheme] = React.useState("light");
+  const location = useLocation();
   return (
-    <Sider
-      className="site-layout-background sidebar"
-      width={200}
-      collapsed={collapsed}
-    >
+    <Sider className="sidebar" width={200} collapsed={collapsed}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["/"]}
+        selectedKeys={[location.pathname]}
         defaultOpenKeys={["sub1"]}
-        style={{ height: "100%", borderRight: 0 }}
-        theme="dark"
+        style={{ height: "100%", borderRight: 0 }} // background: "#3F63FF"
+        theme={theme}
+        forceSubMenuRender={false}
       >
-        {/* <Popover> */}
-        {/* {console.log(12005,PathMatch)} */}
         <Menu.Item
-          onClick={onCollapse}
-          key={"a"}
-          
-          style={{ float: "right", backgroundColor: "#001529" }}
+          key={0}
+          className="logo-menu collapse-false"
+          style={{ backgroundColor: theme === "dark" ? "#001529" : "#FFFFFF" }}
         >
-          <Row
-            style={{ backdropFilter: "#fffffff" }}
-            align="center"
-            justify="end"
-          >
-            {React.createElement(
-              collapsed ? RightOutlined : LeftOutlined 
-            ) }
-          </Row>
+          <div className="logo" hidden={collapsed}>
+            <Link to={"/"}>
+              {/* <Image
+                src={window.location.origin + "/megaton.jpg"}
+                style={{ height: 53 }}
+                alt="megaton"
+                preview={false}
+              /> */}
+              <Typography style={{fontFamily:"file0", fontSize:42, lineHeight:53, fontWeight:400, color:"#151515"}}>
+                MEGATON TEAMS
+              </Typography>
+
+            </Link>
+          </div>
         </Menu.Item>
-        {/* </Popover> */}
-        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1" onTitleClick={collapsed && onCollapse}>
+        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1"
+        onTitleClick={collapsed ? onCollapsed : ()=>{}}
+        >
           {routers.map((router, index) => (
-            <Menu.Item key={index + 1} icon={router.icon}>
+            <Menu.Item key={router.path} icon={router.icon}>
               <Link to={router.path}>{router.title + index}</Link>
             </Menu.Item>
           ))}

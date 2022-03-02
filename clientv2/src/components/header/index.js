@@ -1,16 +1,23 @@
 import React from "react";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import "./header.css";
 const { Header } = Layout;
-const HeaderLayout = () => {
+const HeaderLayout = ({onCollapsed,collapsed}) => {
   return (
-    <Header className="header" >
-      <div className="logo" />
-      {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
-      </Menu> */}
+    <Header
+      className="site-layout-background"
+      style={{
+        padding: 0,
+      }}
+    >
+      {React.createElement(
+        collapsed ? MenuUnfoldOutlined : MenuFoldOutlined
+        ,{
+          className: "trigger",
+          onClick: onCollapsed,
+        }
+      )}
     </Header>
   );
 };

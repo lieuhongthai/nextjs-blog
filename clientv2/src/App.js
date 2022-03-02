@@ -6,6 +6,11 @@ import jaJP from "antd/es/locale/ja_JP";
 import MasterLayout from "./components/layouts";
 import { BrowserRouter, Routes } from "react-router-dom";
 function App() {
+  ConfigProvider.config({
+    theme:{
+      light:"#25b864"
+    }
+  })
   return (
     <ConfigProvider locale={jaJP}>
       <BrowserRouter>

@@ -5,7 +5,7 @@ import { convertStringToBoolean, convertStringToNumber } from "../utils";
 dotenv.config();
 
 export const NODE_ENV = process.env.NODE_ENV || "production";
-export const PORT = process.env.PORT || '3000';
+export const PORT = process.env.PORT || 3000 ;
 export const PORT_TEST = process.env.PORT_TEST || '4000';
 export const HOST = process.env.HOST || 'geoex23f.geo.net';
 export const MAIN_DOMAIN = process.env.DOMAIN || '@geonet.co.jp';

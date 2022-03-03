@@ -1,6 +1,6 @@
-import { Layout, Menu, Image, Row, Typography } from "antd";
-import React, { useEffect, useLayoutEffect } from "react";
-import { UserOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Layout, Menu, Typography } from "antd";
+import React from "react";
+import { UserOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import routers from "../../routes";
 import "./Sidebar.css";
@@ -33,7 +33,8 @@ const SidebarLayout = ({ collapsed,onCollapsed }) => {
                 alt="megaton"
                 preview={false}
               /> */}
-              <Typography style={{fontFamily:"file0", fontSize:42, lineHeight:53, fontWeight:400, color:"#151515"}}>
+              <Typography style={{fontFamily:"Megaton", fontSize:25,  fontWeight:400, color:theme==="light"?"#151515":"#FFFFFF"}}>
+                {/* lineHeight:30, */}
                 MEGATON TEAMS
               </Typography>
 

@@ -1,0 +1,93 @@
+/* .sorter-no-tooltip .ant-table-column-sorters:before {
+  content: none !important;
+} */
+/* .ant-table-tbody > tr.ant-table-row-level-1:hover > td {
+  background: unset;
+} */
+/* .ant-table-thead th.ant-table-column-has-sorters:hover {
+  background: "#FAFAFA" !important;
+}
+
+.ant-table-thead .column-header-color {
+  background: "#FAFAFA" !important;
+}
+
+.table-layout .ant-table-thead .column-header-color {
+  color: red;
+}
+thead > tr > th {
+  background-color: "#FAFAFA" !important;
+} */
+/* .sorter-no-tooltip .ant-table-column-sorters:before {
+  content: none !important;
+} */
+.ant-div-active {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: relative;
+  animation: myfirst 5s 1;
+  animation-direction: alternate;
+}
+@keyframes myfirst {
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  }
+  100% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+}
+.ant-row-table-active {
+  position: relative;
+  animation: moveRow 2s 2;
+  animation-direction: alternate;
+  /* visibility: hidden; */
+  /* opacity: 1;
+  transition: opacity 2 linear; */
+}
+@keyframes moveRow {
+  0% {
+    background: red;
+    left: 0px;
+    top: 0px;
+  }
+  /* 25% {
+    background: yellow;
+    left: 200px;
+    top: 0px;
+  }
+  50% {
+    background: blue;
+    left: 200px;
+    top: 200px;
+  }
+  75% {
+    background: green;
+    left: 0px;
+    top: 200px;
+  } */
+  100% {
+    background: red;
+    left: 0px;
+    top: 50px;
+  }
+}

@@ -4,7 +4,7 @@ import { ConfigProvider } from "antd";
 import "antd/dist/antd.min.css";
 import jaJP from "antd/es/locale/ja_JP";
 import MasterLayout from "./components/layouts";
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 function App() {
   ConfigProvider.config({
     theme:{

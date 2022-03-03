@@ -11,14 +11,18 @@
   align-items: center;
   align-content: center;
 }
-
-.logo-menu .ant-menu-title-content {
-  /* overflow: initial !important; */
-}
+@import url("http://fonts.cdnfonts.com/css/megaton");
+/* .logo-menu .ant-menu-title-content {
+  overflow: initial !important;
+} */
 .collapse-false:after {
   border-right: 0px !important;
 }
 
+/* @font-face {
+  font-family: "MyFont";
+  src: local("MyFont") url("/public/Megaton 400.otf") format("opentype");
+} */
 /* 
 .ant-menu,
 .ant-menu-item,

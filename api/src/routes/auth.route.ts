@@ -5,6 +5,7 @@ import { checkDuplicateUsernameOrEmail, checkRolesExisted } from '../middleware/
 import passportLocal from '../passport-local';
 import passport from 'passport';
 import passportFb from '../passport';
+import { server } from '../server';
 
 
 const authRouter = Router();
@@ -23,9 +24,9 @@ authRouter.get(
 authRouter.get("/fail", (req, res) => {
 	res.send("Failed attempt");
 });
-authRouter.get("/", (req, res) => {
+authRouter.get("/", async (req, res) => {
 	console.log(req.body, req.user);
-
-	res.send("Success");
+	const s = await server.address();
+	res.send({"Success":s});
 });
 export default authRouter;

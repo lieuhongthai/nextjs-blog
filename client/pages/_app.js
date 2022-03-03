@@ -8,7 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/router"
 import { useEffect, useState } from 'react';
 import { userService } from 'services/user.service';
-
+import 'antd/dist/antd.css'
+import { SnackbarProvider } from 'notistack';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -96,9 +97,17 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
 
       </Head>
-      <Component {...pageProps} />
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <Component {...pageProps} />
+      </SnackbarProvider>
       {/* Footer */}
-      <Container
+      {/* <Container
         maxWidth="md"
         component="footer"
         sx={{
@@ -126,7 +135,7 @@ function MyApp({ Component, pageProps }) {
           ))}
         </Grid>
         <Copyright sx={{ mt: 0 }} />
-      </Container>
+      </Container> */}
       {/* End footer */}
     </>
   )

@@ -4,7 +4,7 @@ import NodeCache from "node-cache";
 import app from "./express";
 import sequelize from "./sequelize";
 import { Socket, Server } from "socket.io";
-
+import { Stream } from "stream";
 import {
   APP_DB_URL,
   LOG_LOCAL,

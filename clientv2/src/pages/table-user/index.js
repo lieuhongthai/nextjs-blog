@@ -36,8 +36,10 @@ const UserTable = () => {
   const [ids, setIds] = React.useState("");
   const [room, setRoom] = React.useState("room1");
   const [dataIsDelete, setDataIsDelete] = React.useState(null);
+  const [image, setImage] = React.useState(null);
 
   React.useEffect(() => {
+    fetchData();
     //connect io
     socket.current = io.connect("http://localhost:8080");
 
@@ -55,6 +57,48 @@ const UserTable = () => {
       socket.current.disconnect();
     };
   }, [room]);
+
+  const fetchData = ()=>{
+    (async () => {
+      const fetchedResource = await fetch("http://localhost:8080/videos/stream-image", {
+          method: 'get',
+          headers: {
+       //headers goes here
+          }
+      });
+      const reader = await fetchedResource.body.getReader();
+      let chunks = [];
+      reader.read().then(function processText({ done, value }) {
+          console.log(image);
+          console.log(12005,done, value);
+
+          if (done) {
+              console.log('Stream finished. Content received:')
+
+              console.log(chunks);
+
+
+              const blob = new Blob([chunks], { type: "image/jpg" });
+              console.log(blob);
+
+              setImage({
+                  imagedata: URL.createObjectURL(blob)
+              });
+              return
+          }
+
+          console.log(`Received ${chunks.length} chars so far!`)
+          // console.log(value);
+          const tempArray = new Uint8Array(chunks.length + value.length);
+          tempArray.set(chunks);
+          tempArray.set(value, chunks.length);
+          chunks = tempArray
+
+          return reader.read().then(processText)
+      })
+  })();
+  }
+
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log("params", pagination, filters, sorter, extra);
@@ -95,23 +139,28 @@ const UserTable = () => {
           };
         }}
       /> */}
-      <div className="ant-div-active"></div>
-
+      <div className="ant-div-active">
+        <img src={image && image.imagedata} alt={image && image.imagedata}></img>
+      </div>
+      <div className="ant-div-active">
+        <img src={"blob:http://localhost:3000/ba64a1c1-1aa7-4da7-b555-489e06d0af29"} alt={"blob:http://localhost:3000/ba64a1c1-1aa7-4da7-b555-489e06d0af29"}></img>
+      </div>
       <div className="ant-table-wrapper table-layout">
         <div className="ant-spin-nested-loading">
           <div className="ant-spin-container">
             <div className="ant-table ant-table-small">
               <div className="ant-table-container">
                 <div className="ant-table-content">
-                  <table style={{tableLayout: 'auto'}}>
-                    <colgroup></colgroup>
+                  <table style={{ tableLayout: "auto" }}>
                     <thead className="ant-table-thead">
                       <tr>
                         <th className="ant-table-cell ant-table-column-has-sorters">
                           <div className="ant-table-filter-column">
                             <span className="ant-table-column-title">
                               <div className="ant-table-column-sorters">
-                                <span className="ant-table-column-title">Name</span>
+                                <span className="ant-table-column-title">
+                                  Name
+                                </span>
                                 <span className="ant-table-column-sorter">
                                   <span className="ant-table-column-sorter-inner">
                                     <span
@@ -137,7 +186,7 @@ const UserTable = () => {
                             </span>
                             <span
                               role="button"
-                              tabindex="-1"
+                              tabIndex="-1"
                               className="ant-dropdown-trigger ant-table-filter-trigger"
                             >
                               <span
@@ -205,10 +254,12 @@ const UserTable = () => {
                         </th>
                         <th className="ant-table-cell">
                           <div className="ant-table-filter-column">
-                            <span className="ant-table-column-title">Address</span>
+                            <span className="ant-table-column-title">
+                              Address
+                            </span>
                             <span
                               role="button"
-                              tabindex="-1"
+                              tabIndex="-1"
                               className="ant-dropdown-trigger ant-table-filter-trigger"
                             >
                               <span
@@ -231,7 +282,10 @@ const UserTable = () => {
                             </span>
                           </div>
                         </th>
-                        <th className="ant-table-cell" style={{textAlign: "center"}}>
+                        <th
+                          className="ant-table-cell"
+                          style={{ textAlign: "center" }}
+                        >
                           Action
                         </th>
                       </tr>
@@ -239,22 +293,25 @@ const UserTable = () => {
                     <tbody className="ant-table-tbody">
                       <tr
                         data-row-key="2"
-                        className="ant-table-row ant-table-row-level-0 ant-row-table-active"
+                        className="ant-table-row ant-table-row-level-0 "
                       >
                         <td className="ant-table-cell">Jim Green</td>
-                        <td className="ant-table-cell ant-table-column-sort">42</td>
-                        <td className="ant-table-cell">London No. 1 Lake Park</td>
-                        <td className="ant-table-cell" style={{textAlign: "center"}}>
+                        <td className="ant-table-cell ant-table-column-sort">
+                          42
+                        </td>
+                        <td className="ant-table-cell">
+                          London No. 1 Lake Park
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ textAlign: "center" }}
+                        >
                           <div
                             className="ant-space ant-space-horizontal ant-space-align-center"
-                            style={{gap: "16px"}}
+                            style={{ gap: "16px" }}
                           >
-                            <div className="ant-space-item" >
-                              Invite{" "}
-                            </div>
-                            <div className="ant-space-item" >
-                              Jim Green
-                            </div>
+                            <div className="ant-space-item">Invite </div>
+                            <div className="ant-space-item">Jim Green</div>
                             <div className="ant-space-item">
                               <button
                                 type="button"
@@ -271,19 +328,22 @@ const UserTable = () => {
                         className="ant-table-row ant-table-row-level-0 ant-row-table-active"
                       >
                         <td className="ant-table-cell">John Brown</td>
-                        <td className="ant-table-cell ant-table-column-sort">32</td>
-                        <td className="ant-table-cell">New York No. 1 Lake Park</td>
-                        <td className="ant-table-cell" style={{textAlign: "center"}}>
+                        <td className="ant-table-cell ant-table-column-sort">
+                          32
+                        </td>
+                        <td className="ant-table-cell">
+                          New York No. 1 Lake Park
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ textAlign: "center" }}
+                        >
                           <div
                             className="ant-space ant-space-horizontal ant-space-align-center"
-                            style={{gap: "16px"}}
+                            style={{ gap: "16px" }}
                           >
-                            <div className="ant-space-item" >
-                              Invite{" "}
-                            </div>
-                            <div className="ant-space-item" >
-                              John Brown
-                            </div>
+                            <div className="ant-space-item">Invite </div>
+                            <div className="ant-space-item">John Brown</div>
                             <div className="ant-space-item">
                               <button
                                 type="button"
@@ -300,19 +360,22 @@ const UserTable = () => {
                         className="ant-table-row ant-table-row-level-0 ant-row-table-active"
                       >
                         <td className="ant-table-cell">Joe Black</td>
-                        <td className="ant-table-cell ant-table-column-sort">32</td>
-                        <td className="ant-table-cell">Sidney No. 1 Lake Park</td>
-                        <td className="ant-table-cell" style={{textAlign: "center"}}>
+                        <td className="ant-table-cell ant-table-column-sort">
+                          32
+                        </td>
+                        <td className="ant-table-cell">
+                          Sidney No. 1 Lake Park
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ textAlign: "center" }}
+                        >
                           <div
                             className="ant-space ant-space-horizontal ant-space-align-center"
-                            style={{gap: "16px"}}
+                            style={{ gap: "16px" }}
                           >
-                            <div className="ant-space-item" >
-                              Invite{" "}
-                            </div>
-                            <div className="ant-space-item" >
-                              Joe Black
-                            </div>
+                            <div className="ant-space-item">Invite </div>
+                            <div className="ant-space-item">Joe Black</div>
                             <div className="ant-space-item">
                               <button
                                 type="button"
@@ -329,19 +392,22 @@ const UserTable = () => {
                         className="ant-table-row ant-table-row-level-0 ant-row-table-active"
                       >
                         <td className="ant-table-cell">Jim Red</td>
-                        <td className="ant-table-cell ant-table-column-sort">32</td>
-                        <td className="ant-table-cell">London No. 2 Lake Park</td>
-                        <td className="ant-table-cell" style={{textAlign: "center"}}>
+                        <td className="ant-table-cell ant-table-column-sort">
+                          32
+                        </td>
+                        <td className="ant-table-cell">
+                          London No. 2 Lake Park
+                        </td>
+                        <td
+                          className="ant-table-cell"
+                          style={{ textAlign: "center" }}
+                        >
                           <div
                             className="ant-space ant-space-horizontal ant-space-align-center"
-                            style={{gap: "16px"}}
+                            style={{ gap: "16px" }}
                           >
-                            <div className="ant-space-item" >
-                              Invite{" "}
-                            </div>
-                            <div className="ant-space-item" >
-                              Jim Red
-                            </div>
+                            <div className="ant-space-item">Invite </div>
+                            <div className="ant-space-item">Jim Red</div>
                             <div className="ant-space-item">
                               <button
                                 type="button"
@@ -370,7 +436,7 @@ const UserTable = () => {
                 <button
                   className="ant-pagination-item-link"
                   type="button"
-                  tabindex="-1"
+                  tabIndex="-1"
                   disabled=""
                 >
                   <span
@@ -395,7 +461,7 @@ const UserTable = () => {
               <li
                 title="1"
                 className="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active"
-                tabindex="0"
+                tabIndex="0"
               >
                 <a rel="nofollow">1</a>
               </li>
@@ -407,7 +473,7 @@ const UserTable = () => {
                 <button
                   className="ant-pagination-item-link"
                   type="button"
-                  tabindex="-1"
+                  tabIndex="-1"
                   disabled=""
                 >
                   <span

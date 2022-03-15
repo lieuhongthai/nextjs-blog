@@ -10,14 +10,14 @@ import React from "react";
 const { Content } = Layout;
 const MasterLayout = () => {
   const [collapsed, setCollapsed] = React.useState(false);
-
+  const isLeft = true;
   const onCollapsed = () => {
     setCollapsed(!collapsed);
   };
   return (
     <Layout>
       {/* sidebar */}
-      <SidebarLayout onCollapsed={onCollapsed} collapsed={collapsed} />
+      {isLeft && <SidebarLayout onCollapsed={onCollapsed} collapsed={collapsed} />}
       <Layout className="site-layout">
         {/* Header */}
         <HeaderLayout onCollapsed={onCollapsed} collapsed={collapsed} />
@@ -41,6 +41,7 @@ const MasterLayout = () => {
         </Content>
         <FooterLayout />
       </Layout>
+      {!isLeft && <SidebarLayout onCollapsed={onCollapsed} collapsed={collapsed} />}
     </Layout>
     // </Router>
   );

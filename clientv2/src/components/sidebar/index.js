@@ -7,11 +7,14 @@ import "./Sidebar.css";
 const SidebarLayout = ({ collapsed,onCollapsed }) => {
   const { Sider } = Layout;
   const { SubMenu } = Menu;
-  const [theme, setTheme] = React.useState("light");
+  // const [theme, setTheme] = React.useState("light");
+  const theme="light";
+
   const location = useLocation();
   return (
     <Sider className="sidebar" width={200} collapsed={collapsed}>
       <Menu
+        id="menu-slide-bar-custom"
         mode="inline"
         defaultSelectedKeys={["/"]}
         selectedKeys={[location.pathname]}

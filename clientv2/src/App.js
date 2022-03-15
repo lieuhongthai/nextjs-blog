@@ -14,7 +14,7 @@ function App() {
   return (
     <ConfigProvider locale={jaJP}>
       <BrowserRouter>
-          <MasterLayout />
+        <MasterLayout />
       </BrowserRouter>
     </ConfigProvider>
   );

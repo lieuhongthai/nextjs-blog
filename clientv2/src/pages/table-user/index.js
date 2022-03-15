@@ -5,40 +5,39 @@ import columnsData from "./columnData";
 import io from "socket.io-client";
 const data = [
   {
-    key: "1",
-    name: "John Brown",
+    key: '1',
+    name: 'John Brown',
     age: 32,
-    address: "New York No. 1 Lake Park",
+    address: 'New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
   },
   {
-    key: "2",
-    name: "Jim Green",
+    key: '2',
+    name: 'Jim Green',
     age: 42,
-    address: "London No. 1 Lake Park",
+    address: 'London No. 1 Lake Park',
+    tags: ['loser'],
   },
   {
-    key: "3",
-    name: "Joe Black",
+    key: '3',
+    name: 'Joe Black',
     age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
   },
 ];
 
 const UserTable = () => {
   const [rows, setRows] = React.useState(data);
   const socket = React.useRef();
+  // eslint-disable-next-line no-unused-vars
   const [ids, setIds] = React.useState("");
   const [room, setRoom] = React.useState("room1");
   const [dataIsDelete, setDataIsDelete] = React.useState(null);
   const [image, setImage] = React.useState(null);
 
   React.useEffect(() => {
+    setRoom("room1");
     fetchData();
     //connect io
     socket.current = io.connect("http://localhost:8080");
@@ -116,7 +115,7 @@ const UserTable = () => {
     }
   }, [dataIsDelete]);
 
-  const afterDeleteRow = (row) => {
+  function afterDeleteRow(row){
     const filterRow = rows.filter((value, index, arr) => {
       return value.key !== row.key;
     });
@@ -125,21 +124,21 @@ const UserTable = () => {
 
   return (
     <>
-      {/* <Table
-        className="table-layout"
+      <Table
+        // className="table-layout"
         columns={columns}
         dataSource={rows}
         onChange={onChange}
-        showSorterTooltip={false}
+        // showSorterTooltip={false}
         size="small"
-        rowClassName="ant-row-table-active"
+        // rowClassName="ant-row-table-active"
         onRow={(e) => {
           return {
             onClick: (e, index) => console.log(12005, e),
           };
         }}
-      /> */}
-      <div className="ant-div-active">
+      />
+      {/* <div className="ant-div-active">
         <img src={image && image.imagedata} alt={image && image.imagedata}></img>
       </div>
       <div className="ant-div-active">
@@ -431,7 +430,7 @@ const UserTable = () => {
               <li
                 title="前のページ"
                 className="ant-pagination-prev ant-pagination-disabled"
-                aria-disabled="true"
+                ariaDisabled="true"
               >
                 <button
                   className="ant-pagination-item-link"
@@ -463,12 +462,12 @@ const UserTable = () => {
                 className="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active"
                 tabIndex="0"
               >
-                <a rel="nofollow">1</a>
+                <a href="#" rel="nofollow">1</a>
               </li>
               <li
                 title="次のページ"
                 className="ant-pagination-next ant-pagination-disabled"
-                aria-disabled="true"
+                ariaDisabled="true"
               >
                 <button
                   className="ant-pagination-item-link"
@@ -498,7 +497,7 @@ const UserTable = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

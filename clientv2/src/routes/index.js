@@ -1,11 +1,11 @@
 import TestCanvas from "../pages/canvas";
 import {
   AppstoreOutlined,
-  MenuFoldOutlined,
+  // MenuFoldOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
-import UserTable from "../pages/table-user";
-import TableEnterLeave from "../pages/table-test";
+// import TableEnterLeave from "../pages/table-test";
+import TableUser from "../pages/users/table-user";
 const routers = [
   {
     path: "/",
@@ -18,16 +18,16 @@ const routers = [
     path: "/users",
     title: "Users",
     icon:<UserAddOutlined/>,
-    component: <UserTable/>,
+    component: <TableUser/>,
     main: () => <h2>Bubblegum</h2>,
   },
-  {
-    path: "/shoelaces",
-    title: "shoelaces",
-    icon:<MenuFoldOutlined/>,
-    component: <TableEnterLeave/>,
-    main: () => <h2>Shoelaces</h2>,
-  },
+  // {
+  //   path: "/shoelaces",
+  //   title: "shoelaces",
+  //   icon:<MenuFoldOutlined/>,
+  //   component: <TableEnterLeave/>,
+  //   main: () => <h2>Shoelaces</h2>,
+  // },
 ];
 
 export default routers;

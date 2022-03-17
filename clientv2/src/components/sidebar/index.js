@@ -4,14 +4,14 @@ import { UserOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import routers from "../../routes";
 import "./Sidebar.css";
-const SidebarLayout = ({ collapsed,onCollapsed }) => {
+const SidebarLayout = ({ collapsed, onCollapsed }) => {
   const { Sider } = Layout;
   const { SubMenu } = Menu;
   // const [theme, setTheme] = React.useState("light");
-  const theme="light";
+  const theme = "light";
 
   const location = useLocation();
-  const getRouters = routers
+  const getRouters = routers;
   return (
     <Sider className="sidebar" width={200} collapsed={collapsed}>
       <Menu
@@ -37,23 +37,34 @@ const SidebarLayout = ({ collapsed,onCollapsed }) => {
                 alt="megaton"
                 preview={false}
               /> */}
-              <Typography style={{fontFamily:"Megaton", fontSize:25,  fontWeight:400, color:theme==="light"?"#151515":"#FFFFFF"}}>
+              <Typography
+                style={{
+                  fontFamily: "Megaton",
+                  fontSize: 25,
+                  fontWeight: 400,
+                  color: theme === "light" ? "#151515" : "#FFFFFF",
+                }}
+              >
                 {/* lineHeight:30, */}
                 MEGATON TEAMS
               </Typography>
-
             </Link>
           </div>
         </Menu.Item>
-        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1"
-        onTitleClick={collapsed ? onCollapsed : undefined}
+        <SubMenu
+          key="sub1"
+          icon={<UserOutlined />}
+          title="subnav 1"
+          onTitleClick={collapsed ? onCollapsed : undefined}
         >
-          {getRouters.map((router) => (
-            <Menu.Item key={router.path} icon={router.icon}>
-              {console.log(12005,router)}
-              <Link to={router.path}>{router.title}</Link>
-            </Menu.Item>
-          ))}
+          {getRouters
+            .filter((element) => element.path !== "*")
+            .map((router) => (
+              <Menu.Item key={router.path} icon={router.icon}>
+                {console.log(12005, router)}
+                <Link to={router.path}>{router.title}</Link>
+              </Menu.Item>
+            ))}
         </SubMenu>
       </Menu>
     </Sider>

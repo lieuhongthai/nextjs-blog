@@ -1,12 +1,12 @@
 import TestCanvas from "../pages/canvas";
 import {
   AppstoreOutlined,
-  // MenuFoldOutlined,
+  MenuFoldOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
-// import TableEnterLeave from "../pages/table-test";
-// import TableUser from "../pages/users/table-user";
 import React from "react";
+import PageNotFound from "../pages/page-not-found";
+import Login from "../pages/login";
 const Canvas = React.lazy(() => import('../pages/canvas'));
 const TableUser = React.lazy(() => import('../pages/users/table-user'));
 const routers = [
@@ -24,6 +24,20 @@ const routers = [
     component: <TableUser/>,
     main: () => <h2>Bubblegum</h2>,
   },
+  {
+    path: "/auth/login",
+    title: "Login",
+    icon:<MenuFoldOutlined/>,
+    component: <Login/>,
+    main: () => <h2>Bubblegum</h2>,
+  },
+
+  {
+    path: "*",
+    icon:"",
+    exact: false,
+    component: <PageNotFound/>
+  }
   // {
   //   path: "/shoelaces",
   //   title: "shoelaces",

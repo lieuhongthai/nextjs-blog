@@ -7,16 +7,20 @@ import MasterLayout from "./components/layouts";
 import { BrowserRouter } from "react-router-dom";
 function App() {
   ConfigProvider.config({
-    theme:{
-      light:"#25b864"
-    }
-  })
+    theme: {
+      light: "#25b864",
+    },
+  });
   return (
-    <ConfigProvider locale={jaJP}>
-      <BrowserRouter>
-        <MasterLayout />
-      </BrowserRouter>
-    </ConfigProvider>
+    
+      <ConfigProvider locale={jaJP}>
+        <React.Suspense fallback={<div>Loading...</div>}>
+        <BrowserRouter>
+          <MasterLayout />
+        </BrowserRouter>
+      </React.Suspense>
+        
+      </ConfigProvider>
   );
 }
 

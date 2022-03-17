@@ -5,14 +5,17 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 // import TableEnterLeave from "../pages/table-test";
-import TableUser from "../pages/users/table-user";
+// import TableUser from "../pages/users/table-user";
+import React from "react";
+const Canvas = React.lazy(() => import('../pages/canvas'));
+const TableUser = React.lazy(() => import('../pages/users/table-user'));
 const routers = [
   {
     path: "/",
     icon: <AppstoreOutlined/>,
     title: "Canvas",
     exact: true,
-    component: <TestCanvas />,
+    component: <Canvas/>,
   },
   {
     path: "/users",

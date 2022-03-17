@@ -11,6 +11,7 @@ const SidebarLayout = ({ collapsed,onCollapsed }) => {
   const theme="light";
 
   const location = useLocation();
+  const getRouters = routers
   return (
     <Sider className="sidebar" width={200} collapsed={collapsed}>
       <Menu
@@ -45,11 +46,12 @@ const SidebarLayout = ({ collapsed,onCollapsed }) => {
           </div>
         </Menu.Item>
         <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1"
-        onTitleClick={collapsed ? onCollapsed : ()=>{}}
+        onTitleClick={collapsed ? onCollapsed : undefined}
         >
-          {routers.map((router, index) => (
+          {getRouters.map((router) => (
             <Menu.Item key={router.path} icon={router.icon}>
-              <Link to={router.path}>{router.title + index}</Link>
+              {console.log(12005,router)}
+              <Link to={router.path}>{router.title}</Link>
             </Menu.Item>
           ))}
         </SubMenu>

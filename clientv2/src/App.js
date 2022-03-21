@@ -6,10 +6,26 @@ import jaJP from "antd/es/locale/ja_JP";
 // import MasterLayout from "./components/layouts";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routerReRender from "./routes/routerReRender";
-import Login from "./pages/login";
-import MasterLayout2 from "./components/layouts/master-template-2";
-import AuthLayout, { HomeLayout } from "./components/AuthLayout";
+import { AuthContext } from "./services/AuthContext";
+import { fakeAuthProvider } from "./services/FakeAuthProvider";
 function App() {
+  let [user, setUser] = React.useState(null);
+  let signin = (newUser, callback) => {
+    return fakeAuthProvider.signin(() => {
+      setUser(newUser);
+      callback();
+    });
+  };
+
+  let signout = (callback) => {
+    return fakeAuthProvider.signout(() => {
+      setUser(null);
+      callback();
+    });
+  };
+
+  let value = { user, signin, signout };
+
   ConfigProvider.config({
     theme: {
       light: "#25b864",
@@ -18,33 +34,24 @@ function App() {
   return (
     <ConfigProvider locale={jaJP}>
       <BrowserRouter>
-        {/* <MasterLayout /> */}
-        <Routes>
-          {/* {routerReRender.map(router=>(
-          
-            <Route key={router.path} path={router.path} element={router.component}>
-              {router?.routes.map(item=>(
-                <Route key={item.path}  path={item.path} element={item.component} />
-              ))}
-            </Route>
-        ))} */}
-
-        {/* <Route path="/login" element={<AuthLayout />} />
-        <Route path="/" element={<MasterLayout2 />} >
-          <Route path="/" element={<HomeLayout />} />
-        </Route> */}
-        
-        {routerReRender.map((router, index)=>(
-          <Route key={index} path={router.path} element={router.component}>
-            {router.routers && router.routers.map((item, zIndex)=>(
-              <Route key={zIndex+index} path={item.path} element={item.component} />
+        <AuthContext.Provider value={value}>
+          <Routes>
+            {routerReRender.map((router, index) => (
+              <Route key={index} path={router.path} element={router.component}>
+                {router.routers &&
+                  router.routers.map((item, zIndex) => {
+                    return (
+                      <Route
+                        key={item.path}
+                        path={item.path}
+                        element={item.component}
+                      />
+                    );
+                  })}
+              </Route>
             ))}
-          </Route>
-
-        ))}
-
-
-        </Routes>
+          </Routes>
+        </AuthContext.Provider>
       </BrowserRouter>
     </ConfigProvider>
   );

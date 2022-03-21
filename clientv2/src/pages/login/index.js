@@ -1,12 +1,22 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import "./login.css";
+import useAuth from '../../services/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';
 const Login = () => {
+  const auth = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 	const onFinish = values => {
-		console.log('Received values of form: ', values);
+		console.log('Received values of form: ', values,from,location);
+    auth.signin(values.username, ()=>{
+      navigate(from, {replace:true});
+    })
 	  };
 	return (
-		<div>
+		<Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
 			<Form
       name="normal_login"
       className="login-form"
@@ -58,7 +68,7 @@ const Login = () => {
         Or <a href="/#">register now!</a>
       </Form.Item>
     </Form>
-		</div>
+		</Row>
 	);
 };
 

@@ -1,13 +1,15 @@
 import React from "react";
 import AuthLayout, { HomeLayout } from "../components/AuthLayout";
 import MasterLayout2 from "../components/layouts/master-template-2";
-import TestCanvas from "../pages/canvas";
 import Login from "../pages/login";
 import PageNotFound from "../pages/page-not-found";
-import TableUser from "../pages/users/table-user";
-const Login2 = React.lazy(() => import("../pages/login"));
-const Canvas = React.lazy(() => import("../pages/canvas"));
-const AuthLayout2 = React.lazy(() => import("../components/AuthLayout"));
+// import TableUser from "../pages/users/table-user";
+
+/**
+ * lazy loading
+ */
+const TableUser = React.lazy(()=>import("../pages/users/table-user"));
+const TestCanvas = React.lazy(()=>import("../pages/canvas"));
 const routerReRender = [
   {
     path: "/",
@@ -15,27 +17,35 @@ const routerReRender = [
     routers: [
       {
         path: "/",
-        component: <TestCanvas />,
+        component: <React.Suspense fallback={<>...</>}>
+        <TestCanvas />
+      </React.Suspense>,
       },
       {
-        path: "/user",
-        component: <TableUser />,
+        path: "users",
+        component: (
+          <React.Suspense fallback={<>...</>}>
+            <TableUser />
+          </React.Suspense>
+        ),
       },
+      {
+        path:"*",
+        component: <PageNotFound/>,
+      }
     ],
   },
 
   {
-    path: "/auth/",
+    path: "/auth",
     component: <AuthLayout />,
-    routes: [
+    routers: [
       {
-        path: "/login",
+        path: "login",
         component: <Login />,
       },
       {
-        index: true,
-        path: "/register",
-        exact: false,
+        path: "register",
         component: (
           <React.Suspense>
             <TableUser />

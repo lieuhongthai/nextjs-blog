@@ -164,7 +164,6 @@ class TableEnterLeave extends React.Component {
     e.preventDefault();
     const data = this.state.data.filter((item) => item.key !== key);
     this.setState({ data, isPageTween: false });
-    console.log(12005,key);
   };
 
   pageChange = () => {

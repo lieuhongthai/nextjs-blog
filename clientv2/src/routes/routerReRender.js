@@ -1,8 +1,9 @@
 import React from "react";
-import AuthLayout, { HomeLayout } from "../components/AuthLayout";
+import AuthLayout from "../components/AuthLayout";
 import MasterLayout2 from "../components/layouts/master-template-2";
 import Login from "../pages/login";
 import PageNotFound from "../pages/page-not-found";
+import {LinearProgress} from "@material-ui/core";
 // import TableUser from "../pages/users/table-user";
 
 /**
@@ -17,14 +18,14 @@ const routerReRender = [
     routers: [
       {
         path: "/",
-        component: <React.Suspense fallback={<>...</>}>
+        component: <React.Suspense fallback={<><LinearProgress/></>}>
         <TestCanvas />
       </React.Suspense>,
       },
       {
         path: "users",
         component: (
-          <React.Suspense fallback={<>...</>}>
+          <React.Suspense fallback={<LinearProgress/>}>
             <TableUser />
           </React.Suspense>
         ),

@@ -48,7 +48,6 @@ const footers = [
 ];
 
 function MyApp({ Component, pageProps }) {
-  // console.log(12005, "=========> :", "asdsada", useRouter().asPath);
   const router = useRouter();
   const [user, setUser] = useState();
   const [authorized, setAuthorized] = useState();

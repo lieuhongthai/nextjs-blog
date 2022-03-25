@@ -1,50 +1,88 @@
 import React from "react";
 import { Table } from "antd";
 import columns from "./data/column";
-import dataRows from "./data/dataRows";
+// import dataRows from "./data/dataRows";
+import qs from "qs";
+import { useHover } from "../../common/hook-hover";
 const TableUser = () => {
-
-  const [rows,setRows] = React.useState([]);
+  const [rows, setRows] = React.useState([]);
+  const { hoverProps, isHovered } = useHover({
+    // onHoverStart: () => {
+    //   console.log("onHoverStart");
+    // },
+    // onHoverEnd: () => {
+    //   console.log("onHoverEnd");
+    // },
+  });
   const [pagination, setPagination] = React.useState({
     current: 1,
-    pageSize: 2,
-    total: 3,
+    pageSize: 10,
+    total: 20,
   });
-  // const [loading,setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
-  React.useEffect(()=>{
-    setRows(dataRows);
-  },[]);
+  React.useEffect(() => {
+    FetchApiData(pagination);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  React.useMemo(()=>{
-    setPagination(dataState=>({
-      ...dataState,
-      total: rows.length
-    }))
-  },[rows])
+  const getRandomuserParams = (params) => ({
+    results: params.pageSize,
+    page: params.current,
+  });
+  function FetchApiData(params = {}) {
+    setLoading(true);
+    fetch(
+      `https://randomuser.me/api?${qs.stringify(getRandomuserParams(params))}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setPagination((dataState) => ({
+          ...dataState,
+          ...params,
+          // total: 200,
+        }));
+        setRows(data.results);
+        setLoading(false);
+      });
+  }
 
   function onChangeHandle(pagination, filters, sorter, extra) {
-    console.log(12005, pagination, filters, sorter, extra);
-    setPagination(pagination);
+    FetchApiData(pagination);
   }
-  
-  const DeleteRow = (zIndex)=>{
-    console.log(12005, zIndex);
-    const filterRow = rows.filter((value, index, arr)=> index !== zIndex);
+
+  const DeleteRow = (zIndex) => {
+    const filterRow = rows.filter((value, index, arr) => index !== zIndex);
     setRows(filterRow);
-  }
+  };
 
   return (
     <div>
+      <div {...hoverProps}
+      style={{
+        height: 150,
+        width: 150,
+        background: "transparent",
+        border: "1px solid #cbcbcb",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginRight: 6,
+        marginBottom: 6,
+        // ...(isHovered && { backgroundColor: "#e2e2e2" })
+        backgroundColor: isHovered ? "#e2e2e2":"white"
+      }}
+      
+      >aaaaaaaaa {isHovered}</div>
       <Table
+        key={"master-table"}
         columns={columns(DeleteRow)}
+        rowKey={(record) => record.cell}
         dataSource={rows}
         pagination={pagination}
         onChange={onChangeHandle}
-        loading={false}
+        loading={loading}
       />
-
-
     </div>
   );
 };

@@ -7,35 +7,28 @@ const columns = (DeleteRow) =>{
         title: "Name",
         dataIndex: "name",
         key: "name",
-        render: (text) => <p>{text}</p>,
+        render: name => `${name.first} ${name.last}`,
       },
       {
-        title: "Age",
-        dataIndex: "age",
-        key: "age",
+        title: 'Gender',
+        dataIndex: 'gender',
+        key: "gender",
       },
       {
-        title: "Address",
-        dataIndex: "address",
-        key: "address",
+        title: "Location",
+        dataIndex: "location",
+        key: "location",
+        render: location => `${location.state}`
       },
       {
-        title: "Tags",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags) => (
+        title: "Email",
+        key: "email",
+        dataIndex: "email",
+        render: (email) => (
           <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? "geekblue" : "green";
-              if (tag === "loser") {
-                color = "volcano";
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
+                <Tag color={"green"} key={email}>
+                  {email.toUpperCase()}
                 </Tag>
-              );
-            })}
           </>
         ),
       },
@@ -44,9 +37,7 @@ const columns = (DeleteRow) =>{
         key: "action",
         render: (text, record, index) => (
           <Space size="middle">
-            <p>Invite {record.name}</p>
-            {/* <Button onClick={()=>DeleteRow(index)}>Delete<Button/> */}
-            <Button onClick={()=>DeleteRow(index)}>Delete</Button>
+            <Button onClick={()=>DeleteRow(index)} type="ghost">Delete</Button>
           </Space>
         ),
       },

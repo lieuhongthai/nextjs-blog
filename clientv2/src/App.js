@@ -9,10 +9,11 @@ import routerReRender from "./routes/routerReRender";
 import { AuthContext } from "./services/AuthContext";
 import { fakeAuthProvider } from "./services/FakeAuthProvider";
 function App() {
-  let [user, setUser] = React.useState(null);
+  let [user, setUser] = React.useState(sessionStorage.getItem("user"));
   let signin = (newUser, callback) => {
     return fakeAuthProvider.signin(() => {
       setUser(newUser);
+      sessionStorage.setItem("user", newUser);
       callback();
     });
   };

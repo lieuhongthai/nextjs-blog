@@ -3,7 +3,6 @@ import { Stage, Layer, Star, Text } from "react-konva";
 import { Layout} from "antd";
 
 const generateShapes = (width) => {
-  console.log(12005,"width",width);
   return [...Array(10)].map((v, i) => ({
     id: i.toString(),
     x: Math.random() * (window.innerWidth-width-50),

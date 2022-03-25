@@ -61,7 +61,6 @@ const SidebarLayout = ({ collapsed, onCollapsed }) => {
             .filter((element) => element.path !== "*")
             .map((router) => (
               <Menu.Item key={router.path} icon={router.icon}>
-                {console.log(12005, router)}
                 <Link to={router.path}>{router.title}</Link>
               </Menu.Item>
             ))}

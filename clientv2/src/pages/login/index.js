@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 	const onFinish = values => {
-		console.log('Received values of form: ', values,from,location);
+		// console.log('Received values of form: ', values,from,location);
     auth.signin(values.username, ()=>{
       navigate(from, {replace:true});
     })
@@ -36,7 +36,7 @@ const Login = () => {
       >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
       </Form.Item>
-      <Form.Item
+      {/* <Form.Item
         name="password"
         rules={[
           {
@@ -50,7 +50,7 @@ const Login = () => {
           type="password"
           placeholder="Password"
         />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item>
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
